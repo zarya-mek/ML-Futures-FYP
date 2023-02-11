@@ -1,0 +1,99 @@
+\chapter{Evaluation Plan}
+
+% what functionality do you need to demonstrate?  What experiments to you need to undertake and what outcome(s) would constitute success?  What benchmarks should you use? How has your project extended the state of the art?  How do you measure qualitative aspects, such as ease of use?  These are the sort of questions that your project evaluation should address; this section should outline your plan.
+
+% What functionality do you need to demonstrate?
+% \begin{itemize}
+%     \item A set of machine learning algorithms that achieve alpha generation 
+%     \item Proof of backtesting
+% \end{itemize}
+
+% What experiments do you need to undertake?
+% \begin{itemize}
+%     \item Let the algorithms `trade' i.e backtest and observe how each algorithm performs on the same (unseen) test data
+%     \item Let the algorithms trade on a variety of historical data
+% \end{itemize}
+
+% What outcomes would constitute success? 
+% \begin{itemize}
+%     \item Algorithms perform alpha generation itself is a success
+%     \item Algorithms are efficient
+%     \item Algorithms are not overfitted on data (i.e they generalize well)
+%     \item Algorithms provide favourable economic statistical metrics, such as equity curve, sharpe ratio, max drawdown
+%     \item Algorithms that may incorporate volatility targeting
+% \end{itemize}
+
+% What benchmarks should you use?
+
+% How has your project extended the state of the art?
+% \begin{itemize}
+% \item Combination of machine learning algorithms with specific risk management technique Volatility Targeting, and utilizing time-series forecasting to make futures trading decisions that generate alpha
+% \end{itemize}
+
+% How do you measure qualitatiev aspects, such as ease of use?
+% \begin{itemize}
+%     \item Algorithms should be designed for people knowledgable about algorithmic trading but are not as computationally literate as a Compsci student
+%     \item Can the algorithms be used on any dataset?
+%     \item The framework that I will be extending should have appropriate documentation.
+% \end{itemize}
+
+The success of this project is determined by the successful evaluation of the outcomes of the project. This project is concerned with evaluating futures trading strategies, as well as integrating machine learning methods for time-series forecasting with classical econometrics to come up with a recommended set of trading algorithms that successfully achieve alpha generation. Therefore it is important to carefully evaluate such trading algorithms by rigorously analysing their performance with financial statistics, plots, and machine learning/reinforcement learning model evaluation theory.
+
+\section{Evaluation of Futures Trading Strategies}
+The performance of futures trading strategies will be quantified by employing a backtesting methodology as outlined in Chapter 3, with regard to performance and risk (volatility) characteristics.
+
+There are several factors to consider when backtesting, such as:
+\begin{itemize}
+\item The quality of the historical data
+\item Accuracy of backtester (the backtester should avoid look-ahead bias, and should be realistic simulator of the market)
+\item Efficiency
+\item Reproducibility
+\end{itemize}
+\subsection{Performance and Risk Analysis}
+Several metrics are used in classical econometrics to evaluate the performance of a trading strategy based on the results of backtesting
+\begin{itemize}
+    \item Visualizing Equity Curves: Equity curves, as explained in Chapter 2 (Background), are a graphical representation of the value of a trading account over time. Equity curves plot one's equity, which includes their account balance, as well as the value of any open positions one may be currently holding. Therefore equity curves are a fundamental indicator of the success of a trading strategy. A general upwards trend with minimal dropdowns indicates that the strategy is generating steady profits.
+    \item Sharpe Ratio: The Sharpe Ratio is a measure of risk-adjusted returns. It is an indicator of whether smart decisions have been made by the strategy, or if the strategy has taken on too much risk. The literature agrees on implications of stronger and weaker Sharpe ratios: A Sharpe ratio of 1.0 is considered good, 2.0 is considered to be very good, and a ratio of 3.0 is considered to be excellent.
+    \item Max Drawdown: The max drawdown is a measure of an asset's largest price drop from it's peak to its trough. A low max drawdown is preferred as it indicates that losses from investments were small.
+    \item Annual Return: Annualized return is a measure of the percentage return of a trading strategy/investment over a year. This metric is useful to see the performance of an investment over time.
+    \item Generated Alpha: Alpha measures the performance of an investment compared to a benchmark index. It represents the excess returns on investments. A positive alpha indicates that a trading strategy has been able to `beat the market', i.e achieve greater returns than simply investing in a benchmark.
+\end{itemize}
+These metrics will be used to analyze and compare classical and ML/RL strategies in a quantitative way.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{6cm}|p{1.5cm}|p{2cm}|p{2.5cm}|p{2cm}|}
+    \hline
+        \textbf{Strategy} & \textbf{Alpha} & \textbf{Sharpe Ratio} & \textbf{Max Drawdown} & \textbf{Annual Return} \\
+        \hline
+        Simple Moving Average Crossover (50-hr window vs 100-hr window) & & & & \\
+         \hline
+        TSAI LSTM & & & & \\
+         \hline
+         & & & &\\
+         \hline
+    \end{tabular}
+    \caption{Sample Strategy Evaluation Table}
+    \label{tab:my_label}
+\end{table}
+
+\subsection{Establishing Benchmarks}
+To further quantify the success of the project, the produced algorithms and strategies will need to perform better than a certain benchmark. Since the purpose of the project is to incorporate ML/RL into futures trading, the benchmark must be a classical strategy/investment. In this project I will evaluate ML/RL trading methods to investing in the S\%P 500 index, by comparing the value of performance and risk measures as outlined above.
+
+\section{Machine Learning and Reinforcement Learning Model Evaluation}
+Machine learning models themselves require evaluation to ensure they are performing optimally.
+\subsection{Assessing Degree of Overfitting and Underfitting}
+Machine learning and reinforcement learning models are prone to underfitting and overfitting on testing/evaluation data. The Bias-Variance tradeoff dictates that a model with high bias experiences low variance in its predictions and is likely to be overfitting, while a model with low bias experiences high variance in predictions and is consequently likely to be underfitting. \\
+
+Assessing the degree of overfitting can be carried out by using the following techniques:
+\begin{itemize}
+\item Cross-validation method: predicted R-squared: This method removes a data point from the training dataset, fits the model to the new dataset, evaluates the accuracy of the prediction, and repeats the process for every data point. If the $R^2$ value is too high, there is evidence that the model does not predict new observations as well as it fits the original dataset. In other words, the model does not generalize well to unseen data.
+\item Accuracy and loss: Validation metrics, such as the a low validation accuracy and a high validation loss can indicate that the model has overfitted on the data.
+\end{itemize}
+
+Assessing the degree of underfitting is generally carried out by observing training accuracy, validation accuracy and loss. If these values are consistently low, this is a sign that the model needs to train further on the training dataset.
+
+\subsection{Testing For Model Convergence}
+Testing if a model, such as a neural network, has converged can be determined by checking if the training error/loss over time has settled around its final value. This can be observed by looking at a plot of Loss vs. Training iterations or epochs. Convergence will occur when the graph plateaus at a final loss value.
+\section{Comparison with State-Of-The-Art}
+Current state-of-the-art ML/RL futures trading strategies should be tested on the same historical data as used above to evaluate our own strategies. The accuracy, performance, risk and efficacy metrics will be compared between the models produced in this project and state-of-the-art models in order to draw conclusions about the success of this project.
